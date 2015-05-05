@@ -1,0 +1,27 @@
+#!/bin/bash
+# This file is created with Chef
+# local modificiations will be overridden
+
+REPOSYNC=$(which reposync)
+CREATEREPO=$(which createrepo)
+RM=$(which rm)
+
+if [ -f /var/lock/sync-repos.lock ]
+then
+  echo "Allready running, exiting ..." && exit 0
+fi
+
+touch /var/lock/sync-repos.lock
+
+# sync every repo for all releases, or at least try
+for RELEASE in <%= node['yum-mirror']['mirrors'].join(' ')%>
+do
+  for REPO in <%= @repo.uniq.join(' ')  %>
+  do
+    PATH=<%= node['yum-mirror']['repopath'] %>/$RELEASE
+    $REPOSYNC -r $RELEASE-$REPO -p $PATH
+    $CREATEREPO $PATH
+  done
+done
+
+$RM /var/lock/sync-repos.lock
