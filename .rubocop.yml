@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - ".kitchen/**/*"
+
+Metrics/LineLength:
+  Max: 160

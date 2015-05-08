@@ -52,7 +52,6 @@ node['yum-mirror']['mirrors'].each do |db|
     end
 
     repos << repo
-
   end
 end
 

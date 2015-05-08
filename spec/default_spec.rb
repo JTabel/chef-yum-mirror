@@ -10,24 +10,20 @@ require 'spec_helper'
     before do
       stub_data_bag('yum-mirror').and_return(%w(centos7 centos6))
       stub_data_bag_item('yum-mirror', 'centos6').and_return(
-      {
         id: 'centos6',
         mirrorlists: {
           base: 'http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=os',
           extras: 'http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=extras'
         },
         gpg: 'http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6'
-      }
       )
       stub_data_bag_item('yum-mirror', 'centos7').and_return(
-      {
         id: 'centos7',
         mirrorlists: {
           base: 'http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os',
           extras: 'http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=extras'
         },
         gpg: 'http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7'
-      }
       )
     end
 
